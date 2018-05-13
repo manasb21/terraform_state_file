@@ -18,7 +18,7 @@ pipeline {
 	    sh 'cd /root/packer'
 	    sh 'pwd'
 	    sh 'hostname -i'
-            sh 'packer build -var aws_access_key=${AWS_KEY} -var aws_secret_key=${AWS_SECRET} $HOME/packer/packer.json'
+            sh 'packer build -var aws_access_key=${AWS_KEY} -var aws_secret_key=${AWS_SECRET} packer/packer.json'
         }
       }
     }
