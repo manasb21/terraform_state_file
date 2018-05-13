@@ -23,7 +23,7 @@
 		{
 			"type": "file",
 			"source": ".",
-			"destination": "packer/ansible-playbook.yml"
+			"destination": "ansible-playbook.yml"
 		}
 	],
 
