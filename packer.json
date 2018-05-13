@@ -10,7 +10,7 @@
 	"provisioners": [
 		{
 			"type": "shell",
-			"execute_command": "echo 'ubuntu' | {{ .Vars }} sudo -E -S sh '{{ .Path }}'"",
+			"execute_command": "echo 'ubuntu' | {{ .Vars }} sudo -E -S sh '{{ .Path }}'",
 			"inline": [
 				"sleep 30",
 				"apt-add-repository ppa:ansible/ansible -y",
