@@ -1,4 +1,3 @@
-
 provider "aws" {
 
 	region	= "us-east-1"
@@ -9,7 +8,7 @@ data "aws_ami" "node_app_ami" {
 
 
 	filter {
-		name = "Manas_Example"
+		name = "packer-example*"
 		values = ["Manas_integration_example*"]
 	}
 
@@ -21,8 +20,9 @@ data "aws_ami" "node_app_ami" {
 	owners = ["185931747856"]
 }
 
-resource "aws_launch_configuration" "node_app_lc" {
 
+resource "aws_launch_configuration" "node_app_lc" {
+	name_prefix   = "terraform-lc-example-node-app"
 	image_id = "${data.aws_ami.node_app_ami.id}"
 	instance_type = "t2.micro"
 	security_groups = ["$aws_security_group.node_app_websg.id}"]
@@ -37,8 +37,8 @@ resource "aws_launch_configuration" "node_app_lc" {
 
 resource "aws_autoscalling_group" "node_app_asg" {
 	name = "terraform-asg-node-${aws_launch_configuration.node_app_lc.name}"
-	launch_configuration = ["${aws_launch_configuration.node_app_lc}"]
-	availability_zone = ["${data.aws.availability_zones.allzones.names}"]
+	launch_configuration = "${aws_launch_configuration.node_app_lc.name}"
+	availability_zone = ["${data.aws_availability_zones.allzones.name}"]
 	min_size = 1
 	max_size = 2
 
@@ -105,7 +105,7 @@ data "aws_availability_zones" "allzones" {}
 
 resource "aws_elb" "elb1" {
 	name = "node-app_manas-node-app_elb"
-	availability_zone = ["${data.aws_availabilty_zones.allzones.names}"]
+	availability_zone = ["${data.aws_availability_zones.allzones.name}"]
 	security_groups = ["${aws_security_group.elbsg.id}"]
 
 
