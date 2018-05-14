@@ -35,7 +35,7 @@ resource "aws_launch_configuration" "node_app_lc" {
 }
 
 
-resource "aws_autoscalling_group" "node_app_asg" {
+resource "aws_autoscaling_group" "node_app_asg" {
 	name = "terraform-asg-node-${aws_launch_configuration.node_app_lc.name}"
 	launch_configuration = "${aws_launch_configuration.node_app_lc.name}"
 	availability_zones = ["${data.aws_availability_zones.allzones.name}"]
@@ -58,7 +58,7 @@ resource "aws_autoscalling_group" "node_app_asg" {
 
 resource "aws_security_group" "node_app_websg" {
 
-	name = "security_group_for_node_app_websg"
+	name = "security-group-for-node-app-websg"
 	ingress {
 
 		from_port = 3000
@@ -77,7 +77,7 @@ resource "aws_security_group" "node_app_websg" {
 
 resource "aws_security_group" "elbsg" {
 
-	name = "Manas_example_elb_sg"
+	name = "Manas-example-elb-sg"
 	ingress {
 
 		from_port = 3000
@@ -104,7 +104,7 @@ resource "aws_security_group" "elbsg" {
 data "aws_availability_zones" "allzones" {}
 
 resource "aws_elb" "elb1" {
-	name = "nodeapp_manas_node_app_elb"
+	name = "node-app-manas-node-appelb"
 	availability_zones = ["${data.aws_availability_zones.allzones.name}"]
 	security_groups = ["${aws_security_group.elbsg.id}"]
 
