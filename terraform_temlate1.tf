@@ -17,7 +17,7 @@ data "aws_ami" "node_app_ami" {
 	}
 
 	filter {
-		name = "Hyperv type "
+		name = "virtualization-type"
 		values = ["hvm"]
 	}
 
