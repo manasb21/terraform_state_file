@@ -38,7 +38,7 @@ resource "aws_launch_configuration" "node_app_lc" {
 resource "aws_autoscalling_group" "node_app_asg" {
 	name = "terraform-asg-node-${aws_launch_configuration.node_app_lc.name}"
 	launch_configuration = "${aws_launch_configuration.node_app_lc.name}"
-	availability_zone = ["${data.aws_availability_zones.allzones.name}"]
+	availability_zones = ["${data.aws_availability_zones.allzones.name}"]
 	min_size = 1
 	max_size = 2
 
@@ -64,7 +64,7 @@ resource "aws_security_group" "node_app_websg" {
 		from_port = 3000
 		to_port	= 3000
 		protocol = "tcp"
-		cidr_blocks = ["0.0.0./0"]
+		cidr_blocks = ["0.0.0.0/0"]
 	}
 
 	lifecycle {
@@ -104,8 +104,8 @@ resource "aws_security_group" "elbsg" {
 data "aws_availability_zones" "allzones" {}
 
 resource "aws_elb" "elb1" {
-	name = "node-app_manas-node-app_elb"
-	availability_zone = ["${data.aws_availability_zones.allzones.name}"]
+	name = "nodeapp_manas_node_app_elb"
+	availability_zones = ["${data.aws_availability_zones.allzones.name}"]
 	security_groups = ["${aws_security_group.elbsg.id}"]
 
 
@@ -117,7 +117,7 @@ resource "aws_elb" "elb1" {
 		lb_protocol = "http"
 	}
 
-	health_ckeck {
+	health_check {
 		healthy_threshold = 2
 		unhealthy_threshold = 2
 		timeout = 3
